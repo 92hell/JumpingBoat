@@ -60,6 +60,16 @@ local function addLevel(levelNumber, offset)
 		obj.name = "trash"
 	end
 	
+	for i=1, table.getn(level.mine) do
+		local obj = display.newImage(floatObs, "assets\\image\\Sea_Mine.png", level.mine[i] + offset, _H*0.3)
+        obj.area = obj.height * obj.width
+		obj.rotation = math.random(0,180)
+		obj.isObstacle = true
+		obj.damage = 100 -- nilai damage yang akan mengurangi health pada saat terjadi collision dengan pemain
+        physics.addBody( obj, { bounce=0.5, density=0.8, friction=0.5} )
+		obj.name = "mine"
+	end
+
 	local islandshape = {-140,0,-35, -180, -35, -260, 95, -260, 95, -200, 140, 0 }
 	local islands = display.newGroup()
 	for i=1, table.getn(level.island) do
