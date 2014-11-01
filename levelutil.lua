@@ -66,7 +66,8 @@ local function addLevel(levelNumber, offset)
         obj.area = obj.height * obj.width
 		obj.rotation = 0
 		obj.isObstacle = true
-		obj.damage = 100 -- nilai damage yang akan mengurangi health pada saat terjadi collision dengan pemain
+		--damage instant kill
+		obj.damage = 100 -- nilai damage yang akan mengurangi health pada saat terjadi collision dengan pemain 
         physics.addBody( obj, { bounce=1.0, density=1.5, friction=0.8} )
 		obj.name = "seaMine"
 	end
