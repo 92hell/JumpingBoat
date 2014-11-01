@@ -21,6 +21,9 @@ local composer = require "composer"
 local data = composer.data
 
 local boatcrash = audio.loadStream( "assets/audio/Game_Over.wav")
+local jumpSound = audio.loadSound( "assets/audio/Jumping.wav")
+local diveSound = audio.loadSound("assets/audio/Boat_Submerged.mp3")
+local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
 
 local liquidYPos
 local liquidHeight
@@ -155,6 +158,7 @@ local function newPlayer ()
 	-- event handler yang dieksekusi saat player diperintahkan untuk meloncat
 	function player:jump (touchTime)
 		if mid.isInWater and not player.isSinking and not player.isWinsAll then
+			audio.play( engineSound, {loops = -1,} )
 			local addImpulse = touchTime / 20
 			if addImpulse > 30 then
 				addImpulse = 30
@@ -176,6 +180,7 @@ local function newPlayer ()
 			front:applyLinearImpulse(0, addImpulse, front.x, front.y)
 			mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)
 			rear:applyLinearImpulse(0, addImpulse, rear.x, rear.x)
+			audio.play( diveSound, {loops = 0,} )
 		end
 	end
 	
@@ -340,12 +345,14 @@ local function newUIElements (player, startTime)
 			self.alpha = 0.6
 			timePressed = system.getTimer()
 			self.isDown = true
+			
 		end
 		if event.phase == "ended" then
 			self.alpha = 0.4
 			player:jump(system.getTimer() - timePressed)
 			timePressed = 0
 			self.isDown = false
+			audio.play( jumpSound, {loops = -0,} )
 		end
 	end
 	rightBtn:addEventListener("touch", rightBtn)
