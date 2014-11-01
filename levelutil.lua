@@ -106,9 +106,6 @@ function addUtility()
 	local diveUtil = display.newImage(utilities, "assets\\image\\dive-icon.png", 24900, _H/4)
 	physics.addBody( diveUtil, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	diveUtil.name = "diveutil"
-	local diveUtil2 = display.newImage(utilities, "assets\\image\\dive-icon.png", 5000, _H/4)
-	physics.addBody( diveUtil2, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
-	diveUtil2.name = "diveutil"
 	return utilities
 end
 levelutil.addUtility = addUtility
