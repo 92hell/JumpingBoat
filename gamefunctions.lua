@@ -20,7 +20,7 @@ local composer = require "composer"
 -- berisi data level
 local data = composer.data
 
-local boatcrash = audio.loadStream( "assets/audio/Game_Over.wav")
+local boatcrash = audio.loadStream("assets/audio/Game_Over.wav")
 local jumpSound = audio.loadSound( "assets/audio/Jumping.wav")
 local diveSound = audio.loadSound("assets/audio/Boat_Submerged.mp3")
 local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
@@ -175,7 +175,7 @@ local function newPlayer ()
 	-- silahkan aplikasikan fungsi dive disini
 	function player:dive ()
 		if not player.isSinking and not player.isWinsAll then
-			local addImpulse = 20	
+			local addImpulse = 30	
 			-- aplikasikan impulse pada setiap boat's body
 			front:applyLinearImpulse(0, addImpulse, front.x, front.y)
 			mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)

@@ -60,14 +60,15 @@ local function addLevel(levelNumber, offset)
 		obj.name = "trash"
 	end
 	
-	for i=1, table.getn(level.mine) do
-		local obj = display.newImage(floatObs, "assets\\image\\Sea_Mine.png", level.mine[i] + offset, _H*0.3)
+	--ranjau
+	for i=1, table.getn(level.seaMine) do
+		local obj = display.newImage(floatObs, "assets\\image\\Sea_Mine.png", level.seaMine[i] + offset, _H*0.3)
         obj.area = obj.height * obj.width
-		obj.rotation = math.random(0,180)
+		obj.rotation = 0
 		obj.isObstacle = true
 		obj.damage = 100 -- nilai damage yang akan mengurangi health pada saat terjadi collision dengan pemain
-        physics.addBody( obj, { bounce=0.5, density=0.8, friction=0.5} )
-		obj.name = "mine"
+        physics.addBody( obj, { bounce=1.0, density=1.5, friction=0.8} )
+		obj.name = "seaMine"
 	end
 
 	local islandshape = {-140,0,-35, -180, -35, -260, 95, -260, 95, -200, 140, 0 }
@@ -116,6 +117,9 @@ function addUtility()
 	local diveUtil = display.newImage(utilities, "assets\\image\\dive-icon.png", 24900, _H/4)
 	physics.addBody( diveUtil, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	diveUtil.name = "diveutil"
+	local diveUtil2 = display.newImage(utilities, "assets\\image\\dive-icon.png", 1000, _H/4)
+	physics.addBody( diveUtil2, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
+	diveUtil2.name = "diveutil"
 	return utilities
 end
 levelutil.addUtility = addUtility
