@@ -31,6 +31,12 @@ local liquidYPos
 local liquidHeight
 local newSinkingFrame
 
+if audio.isChannelPaused(2) then
+	audio.resume(2)
+end
+
+
+
 -- fungsi yang mendeteksi collision antara player dan obstacle
 -- hanya untuk diassign sebagai collision listener pada player
 local function playerObjectCollision(self, event)
@@ -196,7 +202,8 @@ local function newPlayer ()
 			front:applyLinearImpulse(0, addImpulse, front.x, front.y)
 			mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)
 			rear:applyLinearImpulse(0, addImpulse, rear.x, rear.x)
-			audio.play( diveSound, {loops = 0,} )
+			
+			audio.play( diveSound, {channel=3, loops = 0,} )
 		end
 	end
 	
@@ -370,8 +377,12 @@ local function newUIElements (player, startTime)
 			self.isDown = false
 			audio.play( jumpSound, {loops = -0,} )
 			if audio.isChannelActive(2) then			
-				audio.pause(2)
+				audio.stop(2)
 			end
+			if audio.isChannelActive(3) then
+				audio.stop(3)
+			end
+			 
 		end
 	end
 	rightBtn:addEventListener("touch", rightBtn)
