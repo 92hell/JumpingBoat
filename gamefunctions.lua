@@ -94,7 +94,7 @@ local function newPlayer ()
 		{name="closedhood", start=7, count=1}
 	}
 	local boat = display.newSprite(sheet, sequenceData)
-	boat:setSequence("cruisng")
+	boat:setSequence("cruising")
 	boat:play()
 	boat.x = display.contentWidth / 10
 	boat.anchorY = 0.75
@@ -172,6 +172,7 @@ local function newPlayer ()
 		if mid.isInWater and not player.isSinking and not player.isWinsAll then
 			audio.resume(2)
 			local addImpulse = touchTime / 20
+			
 			if addImpulse > 30 then
 				addImpulse = 30
 			end
@@ -186,8 +187,8 @@ local function newPlayer ()
 	
 	--fungsi agar pemain meledak
 	function player:explode()
-		player.velocity = 0;
-		local addImpulse = -40
+		player.velocity = 0
+		local addImpulse = -50
 		front:applyLinearImpulse(0, addImpulse, front.x, front.y)
 		mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)
 		rear:applyLinearImpulse(0, addImpulse, rear.x, rear.x)
