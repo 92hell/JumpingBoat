@@ -25,7 +25,7 @@ audio.setMinVolume( 0.15, { channel=2 } )
 local boatcrash = audio.loadStream("assets/audio/Game_Over.wav")
 local jumpSound = audio.loadSound( "assets/audio/Jumping.wav")
 local diveSound = audio.loadSound("assets/audio/Boat_Submerged.mp3")
---local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
+local healSound = audio.loadSound("assets/audio/Heal_Sound.mp3")
 
 local liquidYPos
 local liquidHeight
@@ -227,6 +227,7 @@ local function newPlayer ()
 		player.health = player.health + 30
 		self.UIControl:healUpdate()
 		self.UIControl:updatePlayerHealth()
+		audio.play( healSound, {loops = -0,} )
 	end
 	
 	-- fungsi agar sprite gambar boat mengikuti body rear
