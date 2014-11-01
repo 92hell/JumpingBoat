@@ -76,8 +76,7 @@ local function playerObjectCollision(self, event)
 		--player berkolisi dengan heal
 		elseif event.other.name == "healutil" then
 			event.other:removeSelf()
-			self.health = self.health + 30
-			self.UIControl:updatePlayerHealth()
+			self:heal()
 			self.boat:setSequence("closing")
 			self.boat:play()
 		end
@@ -222,6 +221,12 @@ local function newPlayer ()
 		front.area = 150
 		mid.area = 700
 		rear.area = 500
+	end
+
+	function player:heal()
+		player.health = player.health + 30
+		self.UIControl:healUpdate()
+		self.UIControl:updatePlayerHealth()
 	end
 	
 	-- fungsi agar sprite gambar boat mengikuti body rear
@@ -418,6 +423,15 @@ local function newUIElements (player, startTime)
 		end	
 	end
 	
+	--mereset bar darah
+	function uiGroup:healUpdate()
+		for i=1, 10 do
+			local box = boatCond[i]
+			box.alpha = 1
+			box:setFillColor(0,1,0)
+		end
+	end
+
 	local pressRotation = 0
 	local currentTime = ""
 	local distance = ""
