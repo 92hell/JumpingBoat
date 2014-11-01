@@ -42,6 +42,10 @@ local function playerObjectCollision(self, event)
 			
 			-- boat tenggelam
 			if self.health <= 0 and not self.isSinking then
+				if event.other.name == "seaMine" then
+					--insert exploding
+					self:explode()
+				end
 				self:die()
 				self.velocity = 0 
 				self.isSinking = true
@@ -172,6 +176,15 @@ local function newPlayer ()
 		end
 	end
 	
+	--fungsi agar pemain meledak
+	function player:explode()
+		player.velocity = 0;
+		local addImpulse = -40
+		front:applyLinearImpulse(0, addImpulse, front.x, front.y)
+		mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)
+		rear:applyLinearImpulse(0, addImpulse, rear.x, rear.x)
+	end
+
 	-- silahkan aplikasikan fungsi dive disini
 	function player:dive ()
 		if not player.isSinking and not player.isWinsAll then
