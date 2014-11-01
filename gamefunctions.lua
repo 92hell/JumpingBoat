@@ -20,10 +20,12 @@ local composer = require "composer"
 -- berisi data level
 local data = composer.data
 
-local boatcrash = audio.loadStream( "assets/audio/Game_Over.wav")
+audio.setMinVolume( 0.15, { channel=2 } )
+
+local boatcrash = audio.loadStream("assets/audio/Game_Over.wav")
 local jumpSound = audio.loadSound( "assets/audio/Jumping.wav")
 local diveSound = audio.loadSound("assets/audio/Boat_Submerged.mp3")
-local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
+--local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
 
 local liquidYPos
 local liquidHeight
@@ -42,6 +44,10 @@ local function playerObjectCollision(self, event)
 			
 			-- boat tenggelam
 			if self.health <= 0 and not self.isSinking then
+				if event.other.name == "seaMine" then
+					--insert exploding
+					self:explode()
+				end
 				self:die()
 				self.velocity = 0 
 				self.isSinking = true
@@ -158,7 +164,7 @@ local function newPlayer ()
 	-- event handler yang dieksekusi saat player diperintahkan untuk meloncat
 	function player:jump (touchTime)
 		if mid.isInWater and not player.isSinking and not player.isWinsAll then
-			audio.play( engineSound, {loops = -1,} )
+			audio.resume(2)
 			local addImpulse = touchTime / 20
 			if addImpulse > 30 then
 				addImpulse = 30
@@ -172,10 +178,19 @@ local function newPlayer ()
 		end
 	end
 	
+	--fungsi agar pemain meledak
+	function player:explode()
+		player.velocity = 0;
+		local addImpulse = -40
+		front:applyLinearImpulse(0, addImpulse, front.x, front.y)
+		mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)
+		rear:applyLinearImpulse(0, addImpulse, rear.x, rear.x)
+	end
+
 	-- silahkan aplikasikan fungsi dive disini
 	function player:dive ()
 		if not player.isSinking and not player.isWinsAll then
-			local addImpulse = 20	
+			local addImpulse = 30	
 			-- aplikasikan impulse pada setiap boat's body
 			front:applyLinearImpulse(0, addImpulse, front.x, front.y)
 			mid:applyLinearImpulse(0, addImpulse, mid.x, mid.y)
@@ -353,6 +368,9 @@ local function newUIElements (player, startTime)
 			timePressed = 0
 			self.isDown = false
 			audio.play( jumpSound, {loops = -0,} )
+			if audio.isChannelActive(2) then			
+				audio.pause(2)
+			end
 		end
 	end
 	rightBtn:addEventListener("touch", rightBtn)

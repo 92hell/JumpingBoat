@@ -27,6 +27,7 @@ local numLevel = levelutil.getNumLevel()
 local scenery
 local foregroundObjects
 local bgmSource
+local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
 
 -- fungsi untuk menambahkan elemen2 level (obstacles dll)
 local function levelAdd(offset)
@@ -135,6 +136,7 @@ function scene:show( event )
 		-- Called when the scene is now on screen
 		physics.start()
 		am.playBM(bgmSource,{loops = -1})
+		audio.play( engineSound, {channel=2, loops = -1,} )
 		Runtime:addEventListener( "enterFrame", enter )
 	end	
 end
