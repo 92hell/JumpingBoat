@@ -20,6 +20,8 @@ local composer = require "composer"
 -- berisi data level
 local data = composer.data
 
+local boatcrash = audio.loadStream( "assets/audio/Game_Over.wav")
+
 local liquidYPos
 local liquidHeight
 local newSinkingFrame
@@ -42,6 +44,7 @@ local function playerObjectCollision(self, event)
 				self.isSinking = true
 				newSinkingFrame(self.UIControl:getScore(), self.UIControl:getCurrentTime(), self.UIControl:getDistance())
 				audio.stop()
+				audio.play( boatcrash, {loops = -0,} )
 				
 			-- kurangi kecepatan boat jika tabrakan (mengenai obstacles)
 			else
