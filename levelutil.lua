@@ -124,9 +124,6 @@ function addUtility()
 	local healUtil2 = display.newImage(utilities, "assets\\image\\Heal_Icon.png", 45000, _H/4)
 	physics.addBody( healUtil2, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	healUtil2.name = "healutil"
-	local healUtil3 = display.newImage(utilities, "assets\\image\\Heal_Icon.png", 3000, _H/4)
-	physics.addBody( healUtil3, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
-	healUtil3.name = "healutil"
 	return utilities
 end
 levelutil.addUtility = addUtility

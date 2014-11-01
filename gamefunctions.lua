@@ -20,8 +20,10 @@ local composer = require "composer"
 -- berisi data level
 local data = composer.data
 
+-- settingan suara
 audio.setMinVolume( 0.15, { channel=2 } )
 
+--mengatur direktori suara yang dipakai
 local boatcrash = audio.loadStream("assets/audio/Game_Over.wav")
 local jumpSound = audio.loadSound( "assets/audio/Jumping.wav")
 local diveSound = audio.loadSound("assets/audio/Boat_Submerged.mp3")
@@ -50,8 +52,8 @@ local function playerObjectCollision(self, event)
 			
 			-- boat tenggelam
 			if self.health <= 0 and not self.isSinking then
+				-- membuat efek ledakan ketika collision dengan ranjau
 				if event.other.name == "seaMine" then
-					--insert exploding
 					self:explode()
 				end
 				self:die()
@@ -73,7 +75,7 @@ local function playerObjectCollision(self, event)
 			self.UIControl:addDiveButton()
 			self.boat:setSequence("closing")
 			self.boat:play()
-		--player berkolisi dengan heal
+		--player berkolisi dengan power-up heal
 		elseif event.other.name == "healutil" then
 			event.other:removeSelf()
 			self:heal()
@@ -191,7 +193,7 @@ local function newPlayer ()
 		end
 	end
 	
-	--fungsi agar pemain meledak
+	--fungsi agar pemain meledak ketika menyentuh ranjau
 	function player:explode()
 		player.velocity = 0
 		local addImpulse = -50
@@ -201,6 +203,7 @@ local function newPlayer ()
 	end
 
 	-- silahkan aplikasikan fungsi dive disini
+	-- power-up dive merupakan counter dari jump
 	function player:dive ()
 		if not player.isSinking and not player.isWinsAll then
 			local addImpulse = 30	
@@ -223,8 +226,12 @@ local function newPlayer ()
 		rear.area = 500
 	end
 
+	-- fungsi untuk menyembuhkan pemain ketika mengambil Power-up heal
 	function player:heal()
 		player.health = player.health + 30
+		if player.health >= 100 then
+			player.health = 100
+		end
 		self.UIControl:healUpdate()
 		self.UIControl:updatePlayerHealth()
 		audio.play( healSound, {loops = -0,} )
@@ -424,7 +431,7 @@ local function newUIElements (player, startTime)
 		end	
 	end
 	
-	--mereset bar darah
+	--mereset bar darah ketika mengambil powerup heal
 	function uiGroup:healUpdate()
 		for i=1, 10 do
 			local box = boatCond[i]
