@@ -73,8 +73,15 @@ local function playerObjectCollision(self, event)
 			self.UIControl:addDiveButton()
 			self.boat:setSequence("closing")
 			self.boat:play()
+		--player berkolisi dengan heal
+		elseif event.other.name == "healutil" then
+			event.other:removeSelf()
+			self.health = self.health + 30
+			self.UIControl:updatePlayerHealth()
+			self.boat:setSequence("closing")
+			self.boat:play()
 		end
-		
+
 	elseif event.phase == "ended" then
 		if event.other.isObstacle then
 			self.isCrashing = false
