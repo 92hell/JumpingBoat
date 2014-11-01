@@ -118,13 +118,13 @@ function addUtility()
 	local diveUtil = display.newImage(utilities, "assets\\image\\dive-icon.png", 24900, _H/4)
 	physics.addBody( diveUtil, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	diveUtil.name = "diveutil"
-	local healUtil = display.newImage(utilities, "assets\\image\\heal_icon.png", 29000, _H/4)
+	local healUtil = display.newImage(utilities, "assets\\image\\Heal_Icon.png", 29000, _H/4)
 	physics.addBody( healUtil, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	healUtil.name = "healutil"
-	local healUtil2 = display.newImage(utilities, "assets\\image\\heal_icon.png", 45000, _H/4)
+	local healUtil2 = display.newImage(utilities, "assets\\image\\Heal_Icon.png", 45000, _H/4)
 	physics.addBody( healUtil2, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	healUtil2.name = "healutil"
-	local healUtil3 = display.newImage(utilities, "assets\\image\\heal_icon.png", 3000, _H/4)
+	local healUtil3 = display.newImage(utilities, "assets\\image\\Heal_Icon.png", 3000, _H/4)
 	physics.addBody( healUtil3, "static", {isSensor = true, box={halfWidth = 36, halfHeight = 26}} )
 	healUtil3.name = "healutil"
 	return utilities
