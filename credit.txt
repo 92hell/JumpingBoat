@@ -1,0 +1,8 @@
+introsound	: Y.C. ft Future - Racks
+backsound	: Pumped Up Kids - Foster The People
+scenery images 	: Adhany Airsy (2014) - Fasilkom 2008
+
+floating code 	: originally from INSERT.CODE - http://insertcode.co.uk
+		  https://github.com/CoronaGeek/Corona-SDK-Water-Buoyancy-Example/blob/master/main.lua
+
+(c) Habiburrahman - 2014
