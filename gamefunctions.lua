@@ -20,14 +20,19 @@ local composer = require "composer"
 -- berisi data level
 local data = composer.data
 
+audio.setMinVolume( 0.15, { channel=2 } )
+
+
 local boatcrash = audio.loadStream( "assets/audio/Game_Over.wav")
 local jumpSound = audio.loadSound( "assets/audio/Jumping.wav")
 local diveSound = audio.loadSound("assets/audio/Boat_Submerged.mp3")
-local engineSound = audio.loadSound("assets/audio/Engine_Sound.mp3")
+
 
 local liquidYPos
 local liquidHeight
 local newSinkingFrame
+
+
 
 -- fungsi yang mendeteksi collision antara player dan obstacle
 -- hanya untuk diassign sebagai collision listener pada player
@@ -158,7 +163,7 @@ local function newPlayer ()
 	-- event handler yang dieksekusi saat player diperintahkan untuk meloncat
 	function player:jump (touchTime)
 		if mid.isInWater and not player.isSinking and not player.isWinsAll then
-			audio.play( engineSound, {loops = -1,} )
+			audio.resume(2)
 			local addImpulse = touchTime / 20
 			if addImpulse > 30 then
 				addImpulse = 30
@@ -203,6 +208,7 @@ local function newPlayer ()
 	
 	-- perbarui kecepatan boat
 	function player:updateVelocity()
+		
 		if not player.isSinking then
 			local xv1, yv1 = front:getLinearVelocity()
 			local xv2, yv2 = rear:getLinearVelocity()
@@ -352,7 +358,12 @@ local function newUIElements (player, startTime)
 			player:jump(system.getTimer() - timePressed)
 			timePressed = 0
 			self.isDown = false
+			
 			audio.play( jumpSound, {loops = -0,} )
+			if audio.isChannelActive(2) then			
+				audio.pause(2)
+			end
+	
 		end
 	end
 	rightBtn:addEventListener("touch", rightBtn)
