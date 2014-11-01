@@ -58,7 +58,7 @@ function scene:create( event )
 	sfxClick = audio.loadSound("assets/audio/pop.mp3")
 	bgmSource = audio.loadStream("assets/audio/intro.mp3")
 	
-	local background = display.newImageRect( "assets/image/openingBackground.jpg", display.contentWidth, display.contentHeight )
+	local background = display.newImageRect( "assets\\image\\openingBackground.jpg", display.contentWidth, display.contentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x, background.y = 0, 0
